@@ -9,10 +9,10 @@ The Client receives the packets and calculates the number of the lost packets .
 ## Classes 
 Class | Description | 	File Name | 
 --- | --- | --- |
-[Main]() | opens a new connection between the client and the server | tester.java | 
-[Server]() | sends messages to the client through Datagram socket packets | UdpUnicastServer.java |
-[Client]() | receiving packets from the server and calling the calculator fuctions | UdpUnicastClient.java |
-[Calculator]() | calculates the total and the last 2 sec lost packets in the middle of the connection  |  v1- UdpCalculator.java ,<br> v2- UDPPacketCalculator
+[Main](https://github.com/karinmarjieh/Client_Server_UDP_Packet_Calc/blob/main/README.md#main) | opens a new connection between the client and the server | tester.java | 
+[Server](https://github.com/karinmarjieh/Client_Server_UDP_Packet_Calc/blob/main/README.md#server) | sends messages to the client through Datagram socket packets | UdpUnicastServer.java |
+[Client](https://github.com/karinmarjieh/Client_Server_UDP_Packet_Calc/blob/main/README.md#client) | receiving packets from the server and calling the calculator fuctions | UdpUnicastClient.java |
+[Calculator](https://github.com/karinmarjieh/Client_Server_UDP_Packet_Calc/blob/main/README.md#client) | calculates the total and the last 2 sec lost packets in the middle of the connection  |  v1- UdpCalculator.java ,<br> v2- UDPPacketCalculator
 
 ## Main
 **run this file to execute the program .** <br>
