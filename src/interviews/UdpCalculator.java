@@ -18,6 +18,7 @@ public class UdpCalculator
 	{
 		//assume that serial numbers are sequential
 		
+		
 		int dif=packetSerialNumber-this.latestNumber; 
 		
 		if(packetSerialNumber != this.latestNumber+1) //it means that a packet or more were lost in the middle // as same as if ((packetSerialNumber-this.latestNumber)>1) or this.latestNumber + 1 != packetSerialNumber
@@ -27,12 +28,9 @@ public class UdpCalculator
 		
 		this.packets.add(new PacketInfo(packetSerialNumber));//add the received packet to the array 
 		this.latestNumber = packetSerialNumber; //let latest number be the serial number of the latest packet received 
-	
-		System.out.println("in fun1");
-		System.out.println("serNumber "+packetSerialNumber);
-		System.out.println("latestNumber "+this.latestNumber);
-		System.out.println("dif"+dif);
-		System.out.println("lost amount "+amountLost);
+		
+		 //fun1(packetSerialNumber,  dif);
+		
 	}
 	
 	
@@ -66,30 +64,11 @@ public class UdpCalculator
 		int i=0,lostPackets=0;//count is the number of loss packages in two seconds
 		long timeNow=Instant.now().toEpochMilli();
 
-		
-//		int packetsValue [] = null; //this stores all of the packets serialNumbers the were received in the last two seconds 
-//		
-//		for(PacketInfo info : this.packets)
-//		{	
-//			long timePassed = ((timeNow-info.timestamp)/1000);
-//			if(timePassed<=2)
-//			{
-//				packetsValue[i]=info.packetValue;//for the packages that were received in the past 2 sec , put them in the arr
-//				i++;
-//			}
-//		}
-//		
-//		for(i=0;i<packetsValue.length-1;i++)
-//		{
-//			if(packetsValue[i+1]-packetsValue[i] > 1)
-//				lostPackets++;
-//		}
-		
 		ArrayList<PacketInfo> packetsValue  = new ArrayList<>(); //this stores all of the packets serialNumbers the were received in the last two seconds 
 		
 		for(PacketInfo info : this.packets)
 		{	
-			long timePassed = ((timeNow-info.timestamp)/1000);
+			long timePassed = ((timeNow-info.getTimestamp())/1000);
 			if(timePassed<=2)
 			{
 				packetsValue.add(i, info);//for the packages that were received in the past 2 sec , put them in the arr
@@ -99,12 +78,12 @@ public class UdpCalculator
 		
 		for(i=0;i<packetsValue.size()-1;i++)
 		{
-			int curr=packetsValue.get(i+1).packetValue;
-			int prev=packetsValue.get(i).packetValue;
+			int curr=packetsValue.get(i+1).getPacketValue();
+			int prev=packetsValue.get(i).getPacketValue();
 			if(curr-prev > 1)
 				lostPackets++;
 		}
-//		
+		
 		int totalNumOfPacketsIn2Sec=packetsValue.size()+lostPackets;
 		// return the percentage of the loss packages in two seconds
 		return ((lostPackets*1000 )/(totalNumOfPacketsIn2Sec*10));//*100;
@@ -112,34 +91,34 @@ public class UdpCalculator
 	
 	public int GetAverageLoss() 
 	{
-		/*int accepted = this.latestNumber - this.amountLost; //calculating the number of accepted packages
-		return (accepted / this.latestNumber) * 100;//percentage of recieved packets */
-		
 		int totalNumOfPackets = this.amountLost + this.packets.size() ;// the total num of packets is the ones that were recievd and the ones the were lost
-		
-		System.out.println("in fun3");
-		System.out.println("this.packets.size()  "+this.packets.size());
-		System.out.println("lost amount "+amountLost);
-		System.out.println("total num of packets " + totalNumOfPackets);
+		//fun3( totalNumOfPackets);
 		
 		int resInPercent=( this.amountLost*1000) / (totalNumOfPackets*10 ) ;//* 100;
 		
-		return (resInPercent) ;//return the lost percentage
-		
-		
+		return (resInPercent) ;//return the lost percentage	
 	
 	}
 	
-	private static class PacketInfo
+	//testing values printing methods in functions
+
+	private void fun1(int packetSerialNumber, int dif)
 	{
-		private int packetValue ;
-		private long timestamp ;
+		System.out.println("in fun 1");
+		System.out.println("serNumber "+packetSerialNumber);
+		System.out.println("latestNumber "+this.latestNumber);
+		System.out.println("dif"+dif);
+		System.out.println("lost amount "+amountLost);
 		
-		private PacketInfo(int packetValue) 
-		{
-			this.packetValue = packetValue ;
-			this.timestamp = Instant.now().toEpochMilli() ;
-		}
 	}
+	
+	private void fun3(int totalNumOfPackets)
+	{
+		System.out.println("in fun3");
+		System.out.println("packetsSize "+this.packets.size());
+		System.out.println("lost amount "+amountLost);
+		System.out.println("total num of packets " + totalNumOfPackets);
+	}
+	
 
 }

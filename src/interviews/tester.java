@@ -10,7 +10,8 @@ public class tester {
 	public static void main(String[] args) 
 	{
 		int port = 5432;
-		UdpCalculator calc= new UdpCalculator();
+		//UdpCalculator calc= new UdpCalculator();//v1
+		UDPPacketCalculator calc= new UDPPacketCalculator();//v2
 		UdpUnicastServer server= new UdpUnicastServer(port);
 		UdpUnicastClient client= new UdpUnicastClient(port, calc);
 		
